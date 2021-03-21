@@ -1,0 +1,47 @@
+version: "3"
+
+services: 
+    server1:
+        container_name: servidor1
+        restart: always
+        build: ./servidor1
+        ports: 
+            - "3000:3000"
+        links:
+            - mongo
+        volumes:
+            - ./servidor1:/usr/src/app
+    server2:
+        container_name: servidor2
+        restart: always
+        build: ./servidor2
+        ports: 
+            - "3001:3001"
+        links:
+            - mongo
+        volumes:
+            - ./servidor2:/usr/src/app
+    server3:
+        container_name: servidor3
+        restart: always
+        build: ./servidor3
+        ports: 
+            - "3002:3002"
+        links:
+            - mongo
+        volumes:
+            - ./servidor3:/usr/src/app
+    mongo:
+        container_name: mongodb
+        image: mongo
+        ports: 
+            - "27018:27017"
+    nginx:
+        container_name: load_balancer
+        build: ./load_balancer
+        ports:
+            - "8080:8080"
+        links:
+            - server1
+            - server2
+            - server3

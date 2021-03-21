@@ -64,7 +64,7 @@ app.get('/reporte', (req, res) => {
 })
 
 
-mongoose.connect('mongodb://localhost:27017/prueba', (err, res) => {
+mongoose.connect('mongodb://mongo:27017/prueba', (err, res) => {
     if (err){
         return console.log(`Error al conectar a la base de datos: ${err}`)
     }
